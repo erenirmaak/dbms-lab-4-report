@@ -12,21 +12,21 @@ Aşağıda kutucuk (checkbox) ile gösterilen maddelerden en az birini seçtiği
 
 ### Disk Erişimi
 
-- [ ]  **Blok bazlı disk erişimi** → block_id + offset
+- [X]  **Blok bazlı disk erişimi** → block_id + offset
 - [ ]  Rastgele erişim
 
 ### VT için Page (Sayfa) Anlamı
 
-- [ ]  VT hangisini kullanır? **Satır/ Sayfa** okuması
+- [X]  VT hangisini kullanır? **Satır/ Sayfa** okuması
 
 ---
 
 ### Buffer Pool
 
-- [ ]  Veritabanları, Sık kullanılan sayfaları bellekte (RAM) kopyalar mı (caching) ?
+- [X]  Veritabanları, Sık kullanılan sayfaları bellekte (RAM) kopyalar mı (caching) ?
 
-- [ ]  LRU / CLOCK gibi algoritmaları
-- [ ]  Diske yapılan I/O nasıl minimize ederler?
+- [X]  LRU / CLOCK gibi algoritmaları
+- [X]  Diske yapılan I/O nasıl minimize ederler?
 
 # 2. Veri Yapıları Perspektifi
 
@@ -63,22 +63,54 @@ Ekran kaydı. 2-3 dk. açık kaynak V.T. kodu üzerinde konunun gösterimi. Vide
 
 # Açıklama (Ort. 600 kelime)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia luctus urna, vel aliquet lacus facilisis ac. Donec quis placerat orci, efficitur consectetur lacus. Sed rhoncus erat ex, at sagittis velit mollis et. Aliquam enim orci, sollicitudin sit amet libero quis, mollis ultricies risus. Fusce tempor, felis a consequat tristique, dolor magna convallis nulla, vel ullamcorper magna mauris non ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam quis imperdiet ex, at blandit sapien. Aliquam lacinia erat ac ipsum fringilla, quis vestibulum augue posuere. Nulla in enim nulla. Nunc euismod odio mauris, sed sollicitudin ex condimentum non. In efficitur egestas enim. Fusce tempus erat quis placerat convallis.
+Veritabanı yönetim sistemlerinde (VTYS) performansı belirleyen temel unsurların başında disk erişimi gelmektedir. 
+Sistem programlama perspektifinden bakıldığında, disk erişimi bellek erişimine kıyasla oldukça maliyetlidir. 
+RAM üzerinden yapılan erişimler pointer seviyesinde O(1) karmaşıklığa sahipken, disk erişimleri blok ve sayfa 
+bazlı gerçekleşir ve milisaniyeler mertebesinde gecikmelere neden olur. Bu nedenle modern veritabanı sistemleri, 
+disk I/O işlemlerini minimize edecek şekilde tasarlanmıştır.
 
-Nam sit amet tincidunt ante. Pellentesque sit amet quam interdum, pellentesque dui vel, iaculis elit. Donec sed dui sodales nulla dignissim tincidunt. Maecenas semper metus id fermentum vulputate. Pellentesque lobortis hendrerit venenatis. Nullam imperdiet, ex eget ultricies egestas, mauris nunc aliquam ante, sed consectetur tellus ex vel leo. Nunc ut erat dapibus, auctor dolor eu, pretium sem. In lacinia congue eros et finibus. Aenean auctor, leo a feugiat placerat, urna felis lacinia purus, laoreet volutpat mi nisl eget dui. Ut vitae condimentum leo.
+İşletim sistemleri diskleri blok bazlı aygıtlar olarak ele alır. Bir veri okunmak istendiğinde, doğrudan tek bir 
+bayt veya satır değil, belirli büyüklükteki disk blokları okunur. Veritabanları bu blokları kendi mantıksal 
+yapılarına uyarlayarak “page (sayfa)” kavramını kullanır. PostgreSQL gibi ilişkisel veritabanlarında bir sayfa 
+genellikle 8KB boyutundadır ve tablolar ile indeksler bu sayfalardan oluşur. Bu durum, veritabanlarının satır 
+bazlı değil, sayfa bazlı okuma ve yazma yaptığını göstermektedir.
 
-Maecenas ex diam, vehicula et nulla vel, mattis viverra metus. Nam at ex scelerisque, semper augue lobortis, semper est. Etiam id pretium odio, eget rutrum neque. Pellentesque blandit magna vel aliquam gravida. Nullam massa nisl, imperdiet at dapibus non, cursus vehicula turpis. Vestibulum rutrum hendrerit augue. Aliquam id nisi id arcu tempor venenatis vel nec erat. Morbi sed posuere erat. Morbi et sollicitudin urna. Suspendisse ullamcorper vitae purus sit amet sodales. Nam ut tincidunt ipsum, ut varius erat. Duis congue magna nec euismod condimentum. In hac habitasse platea dictumst. Nunc mattis odio sed enim laoreet imperdiet. In hac habitasse platea dictumst. Nullam tincidunt quis.
+Disk erişim maliyetini azaltmak amacıyla veritabanları Buffer Pool (buffer cache) adı verilen bir bellek alanı 
+kullanır. Buffer Pool, sık kullanılan veri ve indeks sayfalarının RAM üzerinde tutulduğu bir önbellek yapısıdır. 
+Bir sorgu çalıştırıldığında, ilgili veri sayfasının öncelikle Buffer Pool içerisinde bulunup bulunmadığı kontrol 
+edilir. Eğer sayfa bellekte mevcutsa, disk erişimi yapılmadan doğrudan RAM üzerinden işlem gerçekleştirilir. 
+Bu duruma cache hit denir. Sayfa bellekte yoksa diskten okunur ve Buffer Pool’a eklenir; bu da cache miss olarak 
+adlandırılır.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia luctus urna, vel aliquet lacus facilisis ac. Donec quis placerat orci, efficitur consectetur lacus. Sed rhoncus erat ex, at sagittis velit mollis et. Aliquam enim orci, sollicitudin sit amet libero quis, mollis ultricies risus. Fusce tempor, felis a consequat tristique, dolor magna convallis nulla, vel ullamcorper magna mauris non ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam quis imperdiet ex, at blandit sapien. Aliquam lacinia erat ac ipsum fringilla, quis vestibulum augue posuere. Nulla in enim nulla. Nunc euismod odio mauris, sed sollicitudin ex condimentum non. In efficitur egestas enim. Fusce tempus erat quis placerat convallis.
+Ancak Buffer Pool boyutu sınırlı olduğundan, bellek dolduğunda hangi sayfanın çıkarılacağına karar verilmesi gerekir. 
+Bu noktada veri yapıları ve algoritmalar devreye girer. PostgreSQL gibi sistemler LRU (Least Recently Used) 
+yaklaşımının daha verimli bir türevi olan CLOCK algoritmasını kullanır. CLOCK algoritmasında her sayfa için bir 
+kullanım biti tutulur ve uzun süredir erişilmeyen sayfalar bellekten çıkarılarak yerlerine yeni sayfalar yüklenir. 
+Bu yaklaşım, sık kullanılan sayfaların bellekte kalmasını sağlayarak disk I/O miktarını ciddi ölçüde azaltır.
 
-Nam sit amet tincidunt ante. Pellentesque sit amet quam interdum, pellentesque dui vel, iaculis elit. Donec sed dui sodales nulla dignissim tincidunt. Maecenas semper metus id fermentum vulputate. Pellentesque lobortis hendrerit venenatis. Nullam imperdiet, ex eget ultricies egestas, mauris nunc aliquam ante, sed consectetur tellus ex vel leo. Nunc ut erat dapibus, auctor dolor eu, pretium sem. In lacinia congue eros et finibus. Aenean auctor, leo a feugiat placerat, urna felis lacinia purus, laoreet volutpat mi nisl eget dui. Ut vitae condimentum leo.
+Sistem programlama açısından Buffer Pool, işletim sisteminin sayfa önbelleğine benzer şekilde çalışır; ancak 
+veritabanına özgü erişim örüntülerini dikkate alarak optimize edilmiştir. Örneğin indeks sayfalarının bellekte 
+tutulması, SELECT ve JOIN gibi sorguların performansını doğrudan artırır. Çünkü B+ Tree tabanlı indekslerde kök ve 
+üst seviye düğümlere sık erişilir ve bu düğümlerin RAM’de bulunması sorgu maliyetini düşürür.
 
-Maecenas ex diam, vehicula et nulla vel, mattis viverra metus. Nam at ex scelerisque, semper augue lobortis, semper est. Etiam id pretium odio, eget rutrum neque. Pellentesque blandit magna vel aliquam gravida. Nullam massa nisl, imperdiet at dapibus non, cursus vehicula turpis. Vestibulum rutrum hendrerit augue. Aliquam id nisi id arcu tempor venenatis vel nec erat. Morbi sed posuere erat. Morbi et sollicitudin urna. Suspendisse ullamcorper vitae purus sit amet sodales. Nam ut tincidunt ipsum, ut varius erat. Duis congue magna nec euismod condimentum. In hac habitasse platea dictumst. Nunc mattis odio sed enim laoreet imperdiet. In hac habitasse platea dictumst. Nullam tincidunt quis.
+Açık kaynak PostgreSQL veritabanı incelendiğinde, buffer yönetiminin src/backend/storage/buffer dizini altında 
+gerçekleştirildiği görülmektedir. ReadBuffer_common fonksiyonu ile bir sayfanın buffer pool’da olup olmadığı 
+kontrol edilir. Buffer Pool doluysa, StrategyGetBuffer fonksiyonu CLOCK algoritmasını kullanarak uygun buffer’ı 
+seçer. Bu tasarım sayesinde PostgreSQL, disk erişimlerini minimumda tutarak yüksek performans ve ölçeklenebilirlik 
+sağlar.
+
+Sonuç olarak, veritabanı performansını artıran en önemli hususlar; disk yerine belleğin etkin kullanımı, sayfa 
+bazlı erişim modeli, Buffer Pool mekanizması ve LRU/CLOCK gibi verimli sayfa değiştirme algoritmalarıdır. Bu 
+yaklaşımlar, sistem programlama ve veri yapıları prensiplerinin veritabanı tasarımına başarılı bir şekilde 
+uygulanmasının somut örnekleridir.
 
 ## VT Üzerinde Gösterilen Kaynak Kodları
 
-Açıklama [Linki](https://...) \
-Açıklama [Linki](https://...) \
-Açıklama [Linki](https://...) \
-... \
-...
+PostgreSQL Buffer Manager  
+https://github.com/postgres/postgres/tree/master/src/backend/storage/buffer\
+
+bufmgr.c – Buffer Pool kontrolü  
+https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/bufmgr.c\
+
+freelist.c – CLOCK algoritması  
+https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/freelist.c\
