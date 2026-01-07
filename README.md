@@ -1,11 +1,7 @@
 # Deney Sonu Teslimatı
 
 Sistem Programlama ve Veri Yapıları bakış açısıyla veri tabanlarındaki performansı öne çıkaran hususlar nelerdir?
-
-Aşağıda kutucuk (checkbox) ile gösterilen maddelerden en az birini seçtiğiniz açık kaynak kodlu bir VT kaynak kodları üzerinde göstererek açıklayınız. Açıklama bölümüne kısaca metninizi yazıp, kod üzerinde gösterim videonuzun linkini en altta belirtilen kutucuğa yerleştiriniz.
-
-- [X]  Seçtiğiniz konu/konuları bu şekilde işaretleyiniz. **!**
-    
+  
 ---
 
 # 1. Sistem Perspektifi (Operating System, Disk, Input/Output)
@@ -61,7 +57,7 @@ Ekran kaydı. 2-3 dk. açık kaynak V.T. kodu üzerinde konunun gösterimi. Vide
 
 ---
 
-# Açıklama (Ort. 600 kelime)
+# Açıklama
 
 Veritabanı yönetim sistemlerinde (VTYS) performansı belirleyen temel unsurların başında disk erişimi gelmektedir. 
 Sistem programlama perspektifinden bakıldığında, disk erişimi bellek erişimine kıyasla oldukça maliyetlidir. 
