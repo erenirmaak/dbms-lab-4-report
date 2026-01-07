@@ -103,10 +103,10 @@ uygulanmasının somut örnekleridir.
 ## VT Üzerinde Gösterilen Kaynak Kodları
 
 PostgreSQL Buffer Manager  
-https://github.com/postgres/postgres/tree/master/src/backend/storage/buffer\
+https://github.com/postgres/postgres/tree/master/src/backend/storage/buffer
 
 bufmgr.c – Buffer Pool kontrolü  
-https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/bufmgr.c\
+https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/bufmgr.c
 
 freelist.c – CLOCK algoritması  
-https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/freelist.c\
+https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/freelist.c
