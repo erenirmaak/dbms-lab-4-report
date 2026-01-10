@@ -52,7 +52,7 @@ DB diske yazarken:
 
 ---
 
-# Video [Linki][https://youtu.be/PxBGjQ1xIF8]
+# Video [Linki](https://youtu.be/PxBGjQ1xIF8)
 
 ---
 
